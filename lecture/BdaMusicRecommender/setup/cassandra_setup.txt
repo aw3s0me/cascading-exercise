@@ -1,0 +1,8 @@
+ # Create the keyspace
+ CREATE KEYSPACE cascading_cassandra WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1};
+ 
+ # and the table
+ CREATE TABLE batch_artistid_clusterid (artistid varchar,
+                    clusterid varchar,
+                    PRIMARY KEY (artistid))
+WITH COMPACT STORAGE;

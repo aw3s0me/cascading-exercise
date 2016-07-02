@@ -1,0 +1,5 @@
+# Remove " and ' quotes
+cat userid-timestamp-artid-artname-traid-traname.tsv |sed 's/\"//g'|sed "s/'//g" >clean.tsv
+
+# sort 2nd column (timestamp)
+cat clean.tsv | sort -k 2 > clean_sorted.tsv
