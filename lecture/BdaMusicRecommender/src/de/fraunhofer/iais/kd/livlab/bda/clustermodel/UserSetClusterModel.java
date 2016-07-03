@@ -21,13 +21,16 @@ public class UserSetClusterModel {
 	 * @return
 	 */
 	public String findClosestCluster(UserSet set) {
-		// get cluster keys
+		// get cluster keys (cluster ids)
 		Set<String> keys = this.model.getKeys();
 		String closest = "";
-		double minDist = 0;
+		// max distance of different sets is 1
+		double minDist = 1.0;
 
 		for (String cluster : keys) {
-			UserSet clusterSet = new UserSet(this.model.getValue(cluster));
+			// Format is 0,1,0,1,0 of metroid. Transform to UserSet with userIds
+			UserSet clusterSet = this.model.getValue(cluster);
+			// Jaccard Distance of userIds Sets
 			double dist = set.distanceTo(clusterSet);
 
 			if (dist <= minDist) {

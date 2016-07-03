@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import de.fhg.iais.kd.hadoop.recommender.userset.UserSet;
+
 public class ClusterModel implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -27,13 +29,20 @@ public class ClusterModel implements Serializable {
 	 * @param clusterId
 	 * @return
 	 */
-	public String[] getValue(String clusterId) {
+	public UserSet getValue(String clusterId) {
 		String value = this.get(clusterId);
-
+		UserSet userIds = new UserSet();
 		// Values Example: 0 1 0 1 0 1
 		if (!value.isEmpty()) {
+			String[] metroid = value.split(" ");
+			// Get user ids to use as jaccard distance
+			for (int i = 0; i < metroid.length; i++) {
+				if (metroid[i].contains("1")) {
+					userIds.add(Integer.toString(i));
+				}
+			}
 
-			return value.split(" ");
+			return userIds;
 		}
 		return null;
 	}

@@ -55,6 +55,7 @@ public class ClusterAggregator extends BaseOperation<ClusterAggregator.Context>
 	/**
 	 * Called for each group member
 	 */
+	@SuppressWarnings("rawtypes")
 	@Override
 	public void aggregate(FlowProcess flowProcess,
 			AggregatorCall<Context> aggregatorCall) {
@@ -66,8 +67,11 @@ public class ClusterAggregator extends BaseOperation<ClusterAggregator.Context>
 		Context context = aggregatorCall.getContext();
 
 		// update the context object
-		String userName = arguments.getObject(0).toString().trim();
-		context.user.add(userName);
+		int index = Integer.parseInt(aggregatorCall.getArguments().getString(0)
+				.substring(7));
+		// String userName = arguments.getObject(0).toString().trim();
+		// context.user.add(userName);
+		context.user.add(Integer.toString(index));
 	}
 
 	/**
@@ -86,7 +90,7 @@ public class ClusterAggregator extends BaseOperation<ClusterAggregator.Context>
 		UserSetClusterModel userSetModel = new UserSetClusterModel(model);
 		String cluster = userSetModel.findClosestCluster(context.user);
 
-		result.add(cluster);
+		result.add(cluster + " : ");
 		// return the result Tuple
 		aggregatorCall.getOutputCollector().add(result);
 	}
