@@ -54,6 +54,9 @@ public class UserSetFlow {
 		Aggregator userIdAggregator = new UserIdAggregator(new Fields("users"));
 		pipe = new Every(pipe, userIdAggregator);
 
+		// solution 2
+		// pipe = new Every(pipe, new ListAggregator());
+
 		Properties properties = new Properties();
 		AppProps.setApplicationJarClass(properties,
 				BuildInteractionMatrix.class);
